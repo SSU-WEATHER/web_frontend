@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>날씨 딱~대</title>
+  <style>
+    #app {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 25%;
+      text-align: center;
+    }
+    #app img {
+      display: block;
+      width: 100%;
+    }
+  </style>
+  <script>
+    function geoFindMe() {
+      const status = document.querySelector('#message');
+
+      function success(position) {
+        const latitude  = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        status.innerHTML = `위도: ${latitude}<br />경도: ${longitude}`;
+      }
+
+      function error() {
+        status.textContent = 'Unable to retrieve your location';
+      }
+
+      if(!navigator.geolocation) {
+        status.textContent = 'Geolocation is not supported by your browser';
+      } else {
+        status.textContent = 'Loading...';
+        navigator.geolocation.getCurrentPosition(success, error);
+      }
+    }
+    window.addEventListener('load', geoFindMe);
+  </script>
+</head>
+<body>
+  <div id="app">
+    <img src="./logo.png" alt="">
+    <p id="message">Loading...</p>
+  </div>
+</body>
+</html>
