@@ -1,6 +1,7 @@
 import WeatherApp from './modules/Weather.mjs';
+import Introduce from './modules/Introduce.mjs';
+
 import Loading from './components/Loading.mjs';
-import Introduce from './components/Introduce.mjs';
 import NavigationMenu from './components/NavigationMenu.mjs';
 
 import useIsDesktop from './composition/useIsDesktop.mjs';
