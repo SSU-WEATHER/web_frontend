@@ -1,0 +1,109 @@
+import WeatherApp from './modules/Weather.mjs';
+import Loading from './components/Loading.mjs';
+
+import useMedia from './composition/useMedia.mjs';
+
+const app = Vue.createApp({
+  components: {
+    Loading,
+    WeatherApp,
+  },
+  setup() {
+    return {
+      isDesktop: useMedia('(min-width: 1200px)')
+    }
+  },
+  data() {
+    return {
+      tabIndex: 0,
+      loading: false
+    }
+  },
+  computed: {
+    tabStyle () {
+      return {
+        transform: `translate3d(${-this.tabIndex * 100}%, 0, 0)`
+      }
+    },
+    weatherProps() {
+      const now = dayjs().hour(0).minute(0).second(0); // 현재 날짜
+      const props = {
+        name: 'Seoul', // 이름
+        date: now.toDate(), // 날짜
+        weatherType: 'sunny', // 날씨 타입
+        currentTemperature: 28, // 현재 온도
+        highTemperature: 22, // 최고 온도
+        lowTemperature: 14, // 최저 온도
+        sensoryTemperature: 20, // 체감 온도
+        timeTemperatures: [ // 시간 온도
+          { date: now.toDate(), weatherType: 'sunny', temperature: 19 },
+          { date: now.add(1, 'hour').toDate(), weatherType: 'thunder', temperature: 22 },
+          { date: now.add(2, 'hour').toDate(), weatherType: 'rainy', temperature: 18 },
+          { date: now.add(3, 'hour').toDate(), weatherType: 'snowy', temperature: 4 },
+          { date: now.add(4, 'hour').toDate(), weatherType: 'cloudy', temperature: 15 },
+          { date: now.add(5, 'hour').toDate(), weatherType: 'rainy_and_thunder', temperature: 17 }
+        ],
+        precipitation: 10, // 강수 확률
+        humidity: 23, // 습도
+        airQuality: 'moderate', // 미세먼지 타입
+        wind: 4, // 풍속
+        weekTemperatures: [ // 주간 온도
+          { date: now.toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+          { date: now.add(1, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+          { date: now.add(2, 'day').toDate(), precipitation: 20, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+          { date: now.add(3, 'day').toDate(), precipitation: 20, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+          { date: now.add(4, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+          { date: now.add(5, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+          { date: now.add(6, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
+        ]
+      };
+      console.log(props);
+      return props;
+    }
+  },
+  mounted() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(() => {
+        this.loading = false;
+      });
+    }
+  },
+  template: `
+    <Loading v-if="loading" />
+    <template v-else-if="isDesktop">
+      <WeatherApp v-bind="weatherProps" />
+    </template>
+    <div class="appTab" v-else>
+      <div class="appTab__container" :style="tabStyle">
+        <div class="appTab__content">
+          <WeatherApp v-bind="weatherProps" />
+        </div>
+        <div class="appTab__content"></div>
+        <div class="appTab__content">
+          <img src="/introduce.png" style="display: block; width: 100%" alt="다양한 날씨와 이미지를 보여주어서 직관적으로 알려주는 서비스이며 대학생답게 발랄하며 재미있는 네이밍과 로고 그리고 개발자들의 전문 기술이 들어간 신박하면서 재미있는 어플입니다." />
+        </div>
+      </div>
+      <nav class="appTabNav">
+        <label class="appTabNavItem">
+          <input type="radio" name="appTab" :value="0" v-model="tabIndex" />
+          <i class="appTabNavItem__icon uil uil-estate"></i>
+          <span class="appTabNavItem__value">Home</span>
+        </label>
+        <label class="appTabNavItem">
+          <input type="radio" name="appTab" :value="1" v-model="tabIndex" />
+          <i class="appTabNavItem__icon uil uil-location-point"></i>
+          <span class="appTabNavItem__value">Location</span>
+        </label>
+        <label class="appTabNavItem">
+          <input type="radio" name="appTab" :value="2" v-model="tabIndex" />
+          <i class="appTabNavItem__icon uil uil-info-circle"></i>
+          <span class="appTabNavItem__value">About</span>
+        </label>
+      </nav>
+    </div>
+  `
+});
+
+app.mount('#app');
+
+export default app;

@@ -1,54 +1,32 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+  <meta content='yes' name='apple-mobile-web-app-capable' />
+  <meta content='yes' name='mobile-web-app-capable' />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" sizes="256x256" href="/icon256.png">
+  <link rel="apple-touch-icon" sizes="256x256" href="/icon256.png">
   <title>날씨 딱~대</title>
-  <style>
-    #app {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate3d(-50%, -50%, 0);
-      width: 25%;
-      text-align: center;
-    }
-    #app img {
-      display: block;
-      width: 100%;
-    }
-  </style>
-  <script>
-    function geoFindMe() {
-      const status = document.querySelector('#message');
-
-      function success(position) {
-        const latitude  = position.coords.latitude;
-        const longitude = position.coords.longitude;
-
-        status.innerHTML = `위도: ${latitude}<br />경도: ${longitude}`;
-      }
-
-      function error() {
-        status.textContent = 'Unable to retrieve your location';
-      }
-
-      if(!navigator.geolocation) {
-        status.textContent = 'Geolocation is not supported by your browser';
-      } else {
-        status.textContent = 'Loading...';
-        navigator.geolocation.getCurrentPosition(success, error);
-      }
-    }
-    window.addEventListener('load', geoFindMe);
-  </script>
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" href="/css/reset.css">
+  <link rel="stylesheet" href="/css/modules.css">
+  <link rel="stylesheet" href="/css/app.css">
 </head>
+
 <body>
-  <div id="app">
-    <img src="./logo.png" alt="">
-    <p id="message">Loading...</p>
-  </div>
+  <div id="app"></div>
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/advancedFormat.js"></script>
+  <script>dayjs.extend(window.dayjs_plugin_advancedFormat);</script>
+  <script async type="module" src="/js/app.mjs"></script>
 </body>
+
 </html>
