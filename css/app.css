@@ -3,6 +3,10 @@
   height: 100%;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 /* AppHeader */
 .appHeader {
   display: flex;
@@ -303,11 +307,6 @@
     padding-bottom: 10px;
   }
 
-  #section2 .appSectionHeader,
-  #section3 .appSectionHeader {
-    display: none;
-  }
-
   .appSection {
     flex-shrink: unset;
     flex: 1;
@@ -319,9 +318,5 @@
 
   .appSection ~ .appSection {
     margin-left: 11px;
-  }
-
-  .appIndicator {
-    display: none;
   }
 }

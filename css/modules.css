@@ -233,10 +233,6 @@
     margin-top: 10px;
   }
 
-  .weatherInfo {
-    display: none;
-  }
-
   .weatherSection ~ .weatherSection {
     margin-top: 10px;
   }
