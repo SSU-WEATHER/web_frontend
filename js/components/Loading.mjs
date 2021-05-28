@@ -1,8 +1,11 @@
+import Logo from './Logo.mjs';
+
 export default {
   name: 'Loading',
+  components: { Logo },
   template: `
     <div class="appLoading">
-      <img src="/logo.png" class="appLoading__image" />
+      <Logo color="#f3f3f3" class="appLoading__image" />
     </div>
   `
 }

@@ -132,8 +132,8 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 80vw;
-  max-width: 500px;
+  width: 75vw;
+  max-width: 300px;
   animation: appLoadingImage 500ms infinite alternate;
 }
 

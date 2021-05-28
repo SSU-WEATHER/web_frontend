@@ -26,7 +26,7 @@ const app = Vue.createApp({
   data() {
     return {
       currentPage: MENU_ITEMS[0],
-      loading: false,
+      loading: true,
       currentLocation: LOCATION_LIST[0].value
     }
   },
