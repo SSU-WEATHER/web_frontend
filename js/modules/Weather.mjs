@@ -1,4 +1,4 @@
-import NavButton from "../components/NavButton.mjs";
+import Page from "../components/Page.mjs";
 import NavigationMenu from "../components/NavigationMenu.mjs";
 import WeatherIllustration from "../components/WeatherIllustration.mjs";
 import WeatherCurrentTemperatureHeader from "../components/WeatherCurrentTemperatureHeader.mjs";
@@ -17,7 +17,7 @@ const { defineComponent } = Vue;
 export default defineComponent({
   name: 'Weather',
   components: {
-    NavButton,
+    Page,
     NavigationMenu,
     WeatherIllustration,
     WeatherCurrentTemperatureHeader,
@@ -92,13 +92,10 @@ export default defineComponent({
     }
   },
   template: `
-  <article class="app">
-    <header class="appHeader">
+  <Page>
+    <template v-slot:header>
       <h1 class="appTitle">{{name}}</h1>
-      <NavButton className="appNavButton" v-if="isDesktop">
-        <NavigationMenu />
-      </NavButton>
-    </header>
+    </template>
     <nav class="appIndicator" v-if="!isDesktop">
       <ul class="appIndicator__wrapper">
         <li v-for="i in 3" class="appIndicator__item" :class="makeSlideItemClass('appIndicator__item--active', i - 1)" :key="i">
@@ -177,6 +174,6 @@ export default defineComponent({
         </section>
       </div>
     </main>
-  </article>
+  </Page>
   `
 });

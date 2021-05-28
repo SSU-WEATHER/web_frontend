@@ -3,6 +3,16 @@
   height: 100%;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .capitalize {
   text-transform: capitalize;
 }
@@ -180,22 +190,24 @@
   width: 12.4rem;
 }
 
-.appNavButton {
-  display: none;
-  position: absolute;
-  left: 2rem;
-  top: 50%;
-  transform: translate3d(0, -50%, 0);
-}
-
-.appNav__item a {
+.appNavItem__button {
   display: flex;
+  cursor: pointer;
+  background: none;
+  border: none;
   align-items: center;
   height: 4rem;
   padding: 0 1.5rem;
   font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: -0.08px;
+  color: #8e8e93;
+  transition: all 300ms;
+}
+
+.appNavItem__button--active,
+.appNavItem__button:hover {
+  color: #ff7b28;
 }
 
 .appTab {
@@ -223,6 +235,11 @@
   transition-property: transform;
   overflow-y: auto;
   touch-action: pan-y;
+  transform: translate3d(0, 0, 0);
+}
+
+.appTab__content .appHeader {
+  position: absolute;
 }
 
 .appTabNav {
@@ -248,12 +265,14 @@
 
 .appTabNavItem__icon {
   font-size: 24px;
+  transition: color 300ms;
 }
 
 .appTabNavItem__value {
   display: block;
   font-size: 1rem;
   line-height: 1.2;
+  transition: color 300ms;
 }
 
 .appTabNavItem input[type="radio"] {
@@ -288,8 +307,11 @@
 
   .appNavButton {
     top: 63px;
-    transform: none;
+    left: 50%;
+    margin-left: -600px;
+    z-index: 100;
     display: block;
+    position: fixed;
   }
 
   .appHeader {

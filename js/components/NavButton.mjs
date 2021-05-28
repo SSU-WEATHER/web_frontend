@@ -4,7 +4,7 @@ export default {
   name: 'NavButton',
   components: { ToggleButton },
   template: `
-    <ToggleButton iconImage="/images/iconly-light-more-circle.svg" direction="left">
+    <ToggleButton icon="bars" direction="left">
       <slot />
     </ToggleButton>
   `

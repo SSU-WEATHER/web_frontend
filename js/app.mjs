@@ -1,17 +1,22 @@
 import WeatherApp from './modules/Weather.mjs';
 import Introduce from './modules/Introduce.mjs';
+import Location from './modules/Location.mjs';
 
 import Loading from './components/Loading.mjs';
 import NavigationMenu from './components/NavigationMenu.mjs';
+import NavButton from './components/NavButton.mjs';
 
 import useIsDesktop from './composition/useIsDesktop.mjs';
+import { LOCATION_LIST, MENU_ITEMS } from './modules/config.mjs';
 
 const app = Vue.createApp({
   components: {
     Loading,
     Introduce,
     WeatherApp,
-    NavigationMenu
+    NavigationMenu,
+    NavButton,
+    Location
   },
   setup() {
     return {
@@ -20,14 +25,23 @@ const app = Vue.createApp({
   },
   data() {
     return {
-      tabIndex: 0,
-      loading: false
+      currentPage: MENU_ITEMS[0],
+      loading: false,
+      currentLocation: LOCATION_LIST[0].value
     }
   },
   computed: {
     tabStyle () {
       return {
         transform: `translate3d(${-this.tabIndex * 100}%, 0, 0)`
+      }
+    },
+    tabIndex: {
+      get () {
+        return MENU_ITEMS.indexOf(this.currentPage);
+      },
+      set (value) {
+        this.currentPage = MENU_ITEMS[value];
       }
     },
     weatherProps() {
@@ -75,19 +89,27 @@ const app = Vue.createApp({
   template: `
     <Loading v-if="loading" />
     <template v-else-if="isDesktop">
+      <NavButton class="appNavButton">
+        <NavigationMenu v-model:activeMenu="currentPage" />
+      </NavButton>
       <WeatherApp v-bind="weatherProps" />
+      <transition name="fade">
+        <Location v-model:currentLocation="currentLocation" v-show="currentPage === 'Location'" />
+      </transition>
     </template>
     <div class="appTab" v-else>
       <div class="appTab__container" :style="tabStyle">
         <div class="appTab__content">
           <WeatherApp v-bind="weatherProps" />
         </div>
-        <div class="appTab__content"></div>
+        <div class="appTab__content">
+          <Location v-model:currentLocation="currentLocation" />
+        </div>
         <div class="appTab__content">
           <Introduce />
         </div>
       </div>
-      <NavigationMenu v-model:tabIndex="tabIndex" />
+      <NavigationMenu v-model:activeMenu="currentPage" />
     </div>
   `
 });

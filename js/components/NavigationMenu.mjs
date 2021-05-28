@@ -1,10 +1,5 @@
 import useIsDesktop from '../composition/useIsDesktop.mjs';
-
-const MENU_ITEMS = [
-  'Home',
-  'Location',
-  'About'
-];
+import { MENU_ITEMS } from '../modules/config.mjs';
 
 const MENU_STYLE_MAP = {
   'Home': { icon: 'estate' },
@@ -14,7 +9,7 @@ const MENU_STYLE_MAP = {
 
 export default Vue.defineComponent({
   name: 'navigation-menu',
-  props: ['tabIndex'],
+  props: ['activeMenu'],
   setup() {
     return {
       MENU_ITEMS,
@@ -25,20 +20,22 @@ export default Vue.defineComponent({
     menuIcon(menu) {
       return MENU_STYLE_MAP[menu].icon
     },
-    updateTabIndex (index) {
-      this.$emit('update:tabIndex', index);
+    update (value) {
+      this.$emit('update:activeMenu', value);
     }
   },
   template: `
     <nav class="appNav" v-if="isDesktop">
       <ul class="appNav__list">
-        <li class="appNav__item" v-for="menu in MENU_ITEMS" :key="menu"><a href="#">{{menu}}</a></li>
+        <li class="appNav__item" v-for="menu in MENU_ITEMS" :key="menu">
+          <button @click="update(menu)" class="appNavItem__button" :class="{'appNavItem__button--active': activeMenu === menu}">{{menu}}</button>
+        </li>
       </ul>
     </nav>
     <nav class="appTabNav" v-else>
       <label class="appTabNavItem" v-for="(menu, i) in MENU_ITEMS" :key="menu">
-        <input type="radio" name="appTab" :value="i" :checked="i === tabIndex" @change="updateTabIndex(i)" />
-        <i class="appTabNavItem__icon uil uil-estate" :class="'uil-' + menuIcon(menu)"></i>
+        <input type="radio" name="appTab" :value="i" :checked="menu === activeMenu" @change="update(menu)" />
+        <i class="appTabNavItem__icon uil" :class="'uil-' + menuIcon(menu)"></i>
         <span class="appTabNavItem__value">{{menu}}</span>
       </label>
     </nav>
