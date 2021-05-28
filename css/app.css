@@ -68,15 +68,11 @@
 
 /* AppSection */
 .appSectionHeader {
-  height: 4.4rem;
+  margin-top: 0.5rem;
+  text-align: center;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.appSectionHeader + .appSectionHeader {
-  margin-top: .5rem;
 }
 
 .appSectionHeader__title {
@@ -84,9 +80,22 @@
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0.075rem;
+  color: #1c1c1e;
 }
 
-.appSectionHeader__description {
+.appSectionSubHeader {
+  height: 4.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.appSectionHeader + .appSectionSubHeader {
+  margin-top: .4rem;
+}
+
+.appSectionSubHeader__description {
   font-size: 1.2rem;
   line-height: 1.33;
 }
@@ -290,6 +299,7 @@
 
   .appSectionHeader {
     height: 124px;
+    margin-top: 0;
   }
 
   .appContent {
@@ -304,7 +314,7 @@
 
   #section1 {
     flex: none;
-    padding-bottom: 10px;
+    padding-bottom: 26px;
   }
 
   .appSection {
@@ -318,5 +328,16 @@
 
   .appSection ~ .appSection {
     margin-left: 11px;
+  }
+
+  .appSectionSubHeader {
+    height: 68px;
+  }
+
+  .appSectionSubHeader__description {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.29;
+    letter-spacing: -0.41px;
   }
 }

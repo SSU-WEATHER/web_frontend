@@ -8,7 +8,7 @@ export default Vue.defineComponent({
   },
   template: `
   <dl class="weatherTimeItem">
-    <dt class="weatherTimeItem__title">{{isNow ? 'NOW' : date.getHours()}}</dt>
+    <dt class="weatherTimeItem__title">{{isNow ? 'Now' : date.getHours()}}</dt>
     <dd class="weatherTimeItem__icon" role="img">{{icon}}</dd>
     <dd class="weatherTimeItem__value">{{temperature}}°</dd>
   </dl>
