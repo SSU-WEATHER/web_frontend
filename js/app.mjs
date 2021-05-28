@@ -2,6 +2,8 @@ import WeatherApp from './modules/Weather.mjs';
 import Introduce from './modules/Introduce.mjs';
 import Location from './modules/Location.mjs';
 
+import { getWeatherFromAddress, getWeatherFromLocation } from './api/weather.mjs';
+
 import Loading from './components/Loading.mjs';
 import NavigationMenu from './components/NavigationMenu.mjs';
 import NavButton from './components/NavButton.mjs';
@@ -27,61 +29,32 @@ const app = Vue.createApp({
     return {
       currentPage: MENU_ITEMS[0],
       loading: true,
-      currentLocation: LOCATION_LIST[0].value
+      currentLocation: LOCATION_LIST[0].value,
+      weatherProps: null
     }
   },
   computed: {
     tabStyle () {
       return {
-        transform: `translate3d(${-this.tabIndex * 100}%, 0, 0)`
+        transform: `translate3d(${-MENU_ITEMS.indexOf(this.currentPage) * 100}%, 0, 0)`
       }
-    },
-    tabIndex: {
-      get () {
-        return MENU_ITEMS.indexOf(this.currentPage);
-      },
-      set (value) {
-        this.currentPage = MENU_ITEMS[value];
-      }
-    },
-    weatherProps() {
-      const now = dayjs().hour(0).minute(0).second(0); // 현재 날짜
-      const props = {
-        name: 'Seoul', // 이름
-        date: now.toDate(), // 날짜
-        weatherType: 'sunny', // 날씨 타입
-        currentTemperature: 28, // 현재 온도
-        highTemperature: 22, // 최고 온도
-        lowTemperature: 14, // 최저 온도
-        sensoryTemperature: 20, // 체감 온도
-        timeTemperatures: [ // 시간 온도
-          { date: now.toDate(), weatherType: 'sunny', temperature: 19 },
-          { date: now.add(1, 'hour').toDate(), weatherType: 'thunder', temperature: 22 },
-          { date: now.add(2, 'hour').toDate(), weatherType: 'rainy', temperature: 18 },
-          { date: now.add(3, 'hour').toDate(), weatherType: 'snowy', temperature: 4 },
-          { date: now.add(4, 'hour').toDate(), weatherType: 'cloudy', temperature: 15 },
-          { date: now.add(5, 'hour').toDate(), weatherType: 'rainy_and_thunder', temperature: 17 }
-        ],
-        precipitation: 10, // 강수 확률
-        humidity: 23, // 습도
-        airQuality: 'moderate', // 미세먼지 타입
-        wind: 4, // 풍속
-        weekTemperatures: [ // 주간 온도
-          { date: now.toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-          { date: now.add(1, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-          { date: now.add(2, 'day').toDate(), precipitation: 20, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-          { date: now.add(3, 'day').toDate(), precipitation: 20, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-          { date: now.add(4, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-          { date: now.add(5, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-          { date: now.add(6, 'day').toDate(), precipitation: 0, earlyTemperature: 28, earlyWeatherType: 'cloudy', lateWeatherType: 'cloudy', lateTemperature: 12  },
-        ]
-      };
-      return props;
+    }
+  },
+  watch: {
+    async currentLocation () {
+      this.loading = true;
+      this.weatherProps = await getWeatherFromAddress(this.currentLocation);
+      this.currentPage = 'Home';
+      this.loading = false;
     }
   },
   mounted() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(() => {
+      navigator.geolocation.getCurrentPosition(async (position) => {
+        this.weatherProps = await getWeatherFromLocation(
+          position.coords.latitude,
+          position.coords.longitude
+        );
         this.loading = false;
       });
     }
