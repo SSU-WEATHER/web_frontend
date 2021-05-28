@@ -243,6 +243,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  color: #8e8e93;
 }
 
 .appTabNavItem__icon {
@@ -261,9 +262,9 @@
   position: absolute;
 }
 
-.appTabNavItem input[type="radio"]:not(:checked) ~ .appTabNavItem__icon,
-.appTabNavItem input[type="radio"]:not(:checked) ~ .appTabNavItem__value {
-  color: #aeaeb2;
+.appTabNavItem input[type="radio"]:checked ~ .appTabNavItem__icon,
+.appTabNavItem input[type="radio"]:checked ~ .appTabNavItem__value {
+  color: #ff7b28;
 }
 
 @media screen and (min-width: 1200px) {

@@ -107,7 +107,7 @@ export default defineComponent({
       </ul>
     </nav>
     <main class="appContent" ref="slideContainer">
-      <div class="appSlider" ref="slideWrapper" :style="swipeStyle">
+      <div class="appSlider" ref="slideWrapper" :style="!isDesktop && swipeStyle">
         <!-- 일러스트 -->
         <section class="appSection" id="section1" :ref="el => registerSlideItem(el, 0)">
           <header class="appSectionHeader">
