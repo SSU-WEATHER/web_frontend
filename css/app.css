@@ -286,7 +286,23 @@
   color: #ff7b28;
 }
 
+.appFooter {
+  display: none;
+}
+
 @media screen and (min-width: 1200px) {
+  .appFooter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+  }
+
+  .appFooter__logo {
+    width: 45px;
+    height: 45px;
+  }
+
   .app {
     display: block;
     padding-top: 120px;
@@ -329,6 +345,7 @@
     width: 100%;
     flex: none;
     overflow: visible;
+    height: auto;
   }
 
   .appSlider {
