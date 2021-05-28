@@ -1,5 +1,5 @@
 export const WEATHER_TYPES = [
-  'sunny',
+  'cleared',
   'cloudy',
   'thunder',
   'rainy_and_thunder',
@@ -19,6 +19,7 @@ export const AIR_QUALITYS = [
 
 export const EMOJI_MAP = {
   // 날씨
+  'night': '🌙',
   'sunny': '☀️',
   'cloudy': '☁️',
   'thunder': '🌩',

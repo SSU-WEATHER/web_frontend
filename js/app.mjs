@@ -3,6 +3,7 @@ import Introduce from './modules/Introduce.mjs';
 import Location from './modules/Location.mjs';
 
 import { getWeatherFromAddress, getWeatherFromLocation } from './api/weather.mjs';
+import parseWeatherApi from './helpers/parseWeatherApi.mjs';
 
 import Loading from './components/Loading.mjs';
 import NavigationMenu from './components/NavigationMenu.mjs';
@@ -43,7 +44,7 @@ const app = Vue.createApp({
   watch: {
     async currentLocation () {
       this.loading = true;
-      this.weatherProps = await getWeatherFromAddress(this.currentLocation);
+      this.weatherProps = parseWeatherApi(this.currentLocation, await getWeatherFromAddress(this.currentLocation));
       this.currentPage = 'Home';
       this.loading = false;
     }
@@ -51,10 +52,10 @@ const app = Vue.createApp({
   mounted() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        this.weatherProps = await getWeatherFromLocation(
+        this.weatherProps = parseWeatherApi('Current', await getWeatherFromLocation(
           position.coords.latitude,
           position.coords.longitude
-        );
+        ));
         this.loading = false;
       });
     }
