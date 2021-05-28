@@ -70,7 +70,12 @@
   position: absolute;
   right: 2rem;
   top: 50%;
+  transition: all 300ms;
   transform: translate3d(0, -50%, 0);
+}
+
+.weatherTipItem[data-icon]:hover::after {
+  transform: translate3d(0, -50%, 0) scale(1.2) rotate(15deg);
 }
 
 .weatherTipItem__title {
