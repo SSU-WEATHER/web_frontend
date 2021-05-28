@@ -73,6 +73,9 @@ export default defineComponent({
     dateIsToday (date) {
       return dayjs(date).isSame(this.date)
     },
+    getTimeClearWeather (date) {
+      return date.getHours() > 5 && date.getHours() < 18 ? 'sunny' : 'night';
+    },
     emoji(str) {
       return EMOJI_MAP[str];
     }
@@ -88,7 +91,7 @@ export default defineComponent({
       return this.humidity > 40 ? 'humid' : 'dry';
     },
     windIcon() {
-      return this.wind < 5.5 ? 'wind_soft' : this.wind < 10.8 ? 'wind_medium' : 'wind_hard';
+      return this.wind < 13.8 ? 'wind_soft' : this.wind < 20.8 ? 'wind_medium' : 'wind_hard';
     }
   },
   template: `
@@ -128,24 +131,24 @@ export default defineComponent({
           <!-- 시간 예보 -->
           <section class="weatherSection weatherTime">
             <WeatherTimeItem
-              v-for="item in timeTemperatures"
+              v-for="(item, index) in timeTemperatures"
               :key="item.date"
               :date="item.date"
-              :icon="emoji(item.weatherType)"
+              :icon="emoji(item.weatherType !== 'cleared' ? item.weatherType : getTimeClearWeather(item.date))"
               :temperature="item.temperature"
-              :isNow="item.date.getHours() === date.getHours()"
+              :isNow="!index"
             />
           </section>
           <!-- 주간 예보 -->
           <section class="weatherSection weatherWeek">
             <WeatherWeekItem
-              v-for="week in weekTemperatures"
+              v-for="(week, index) in weekTemperatures"
               :key="week.date"
               :date="week.date"
-              :isToday="dateIsToday(week.date)"
+              :isToday="!index"
               :precipitation="week.precipitation"
-              :earlyWeatherIcon="emoji(week.earlyWeatherType)"
-              :lateWeatherIcon="emoji(week.lateWeatherType)"
+              :earlyWeatherIcon="emoji(week.earlyWeatherType === 'cleared' ? 'sunny' : week.earlyWeatherType)"
+              :lateWeatherIcon="emoji(week.lateWeatherType === 'cleared' ? 'night' : week.lateWeatherType)"
               :earlyTemperature="week.earlyTemperature"
               :lateTemperature="week.lateTemperature"
             />

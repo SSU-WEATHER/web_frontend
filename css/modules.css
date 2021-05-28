@@ -145,6 +145,11 @@
 
 .weatherWeekItem__icon {
   font-size: 2.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .weatherWeekItem__icon ~ .weatherWeekItem__icon {
@@ -176,6 +181,12 @@
   font-weight: 600;
   line-height: 1.31;
   letter-spacing: -0.032rem;
+}
+
+.weatherTimeItem__title sub {
+  font-size: 0.5em;
+  margin-left: -3px;
+  vertical-align: text-bottom;
 }
 
 .weatherTimeItem__icon {

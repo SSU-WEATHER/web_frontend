@@ -19,7 +19,7 @@ export default Vue.defineComponent({
     <dt class="weatherWeekItem__title">{{dayOrToday}}</dt>
     <dd class="weatherWeekItem__content">
       <!-- 강수량 -->
-      <strong class="weatherWeekItem__rainy" v-if="precipitation">{{precipitation}}%</strong>
+      <strong class="weatherWeekItem__rainy" v-if="precipitation >= 30">{{precipitation}}%</strong>
       <div class="weatherWeekItem__icons">
         <!-- 오전날씨 -->
         <span class="weatherWeekItem__icon" role="img">{{earlyWeatherIcon}}</span>
