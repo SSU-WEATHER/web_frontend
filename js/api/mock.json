@@ -1471,7 +1471,10 @@
           "speed": 1.17
         }
       }
-    ]
+    ],
+    "city": {
+      "name": "Mock"
+    }
   },
   "airPollution": {
     "list": [

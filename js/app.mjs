@@ -44,7 +44,8 @@ const app = Vue.createApp({
   watch: {
     async currentLocation () {
       this.loading = true;
-      this.weatherProps = parseWeatherApi(this.currentLocation, await getWeatherFromAddress(this.currentLocation));
+      const result = await getWeatherFromAddress(this.currentLocation);
+      this.weatherProps = parseWeatherApi(result.weather.city.name, result);
       this.currentPage = 'Home';
       this.loading = false;
     }
@@ -52,10 +53,11 @@ const app = Vue.createApp({
   mounted() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(async (position) => {
-        this.weatherProps = parseWeatherApi('Current', await getWeatherFromLocation(
+        const result = await getWeatherFromLocation(
           position.coords.latitude,
           position.coords.longitude
-        ));
+        );
+        this.weatherProps = parseWeatherApi(result.weather.city.name, result);
         this.loading = false;
       });
     }
