@@ -6,7 +6,6 @@ import WeatherVariousTemperatureHeader from "../components/WeatherVariousTempera
 import WeatherTimeItem from "../components/WeatherTimeItem.mjs";
 import WeatherWeekItem from "../components/WeatherWeekItem.mjs";
 import WeatherTipItem from "../components/WeatherTipItem.mjs";
-import PlayerButton from "../components/PlayerButton.mjs";
 
 import useSwiper from "../composition/useSwiper.mjs";
 import useIsDesktop from "../composition/useIsDesktop.mjs";
@@ -26,7 +25,6 @@ export default defineComponent({
     WeatherTimeItem,
     WeatherWeekItem,
     WeatherTipItem,
-    PlayerButton
   },
   props: {
     name: String, // 이름
@@ -100,7 +98,6 @@ export default defineComponent({
   <Page>
     <template v-slot:header>
       <h1 class="appTitle">{{name}}</h1>
-      <PlayerButton class="playerButton" :weatherType="weatherType" />
     </template>
     <nav class="appIndicator" v-if="!isDesktop">
       <ul class="appIndicator__wrapper">

@@ -8,6 +8,7 @@ import parseWeatherApi from './helpers/parseWeatherApi.mjs';
 import Loading from './components/Loading.mjs';
 import NavigationMenu from './components/NavigationMenu.mjs';
 import NavButton from './components/NavButton.mjs';
+import PlayerButton from './components/PlayerButton.mjs';
 
 import useIsDesktop from './composition/useIsDesktop.mjs';
 import { LOCATION_LIST, MENU_ITEMS } from './modules/config.mjs';
@@ -19,7 +20,8 @@ const app = Vue.createApp({
     WeatherApp,
     NavigationMenu,
     NavButton,
-    Location
+    Location,
+    PlayerButton
   },
   setup() {
     return {
@@ -64,29 +66,36 @@ const app = Vue.createApp({
   },
   template: `
     <Loading v-if="loading" />
-    <template v-else-if="isDesktop">
-      <NavButton class="appNavButton">
+    <template v-if="weatherProps">
+      <template v-if="isDesktop">
+        <NavButton class="appNavButton">
+          <NavigationMenu v-model:activeMenu="currentPage" />
+        </NavButton>
+        <PlayerButton :weatherType="weatherProps.weatherType" />
+        <WeatherApp :key="weatherProps.name" v-bind="weatherProps" />
+        <transition name="fade">
+          <Location v-model:currentLocation="currentLocation" v-if="currentPage === 'Location'" />
+        </transition>
+        <transition name="fade">
+          <Introduce v-if="currentPage === 'About'" />
+        </transition>
+      </template>
+      <div class="appTab" v-else>
+        <div class="appTab__container" :style="tabStyle">
+          <div class="appTab__content">
+            <PlayerButton :weatherType="weatherProps.weatherType" />
+            <WeatherApp :key="weatherProps.name" v-bind="weatherProps" />
+          </div>
+          <div class="appTab__content">
+            <Location v-model:currentLocation="currentLocation" />
+          </div>
+          <div class="appTab__content">
+            <Introduce />
+          </div>
+        </div>
         <NavigationMenu v-model:activeMenu="currentPage" />
-      </NavButton>
-      <WeatherApp v-bind="weatherProps" />
-      <transition name="fade">
-        <Location v-model:currentLocation="currentLocation" v-show="currentPage === 'Location'" />
-      </transition>
-    </template>
-    <div class="appTab" v-else>
-      <div class="appTab__container" :style="tabStyle">
-        <div class="appTab__content">
-          <WeatherApp v-bind="weatherProps" />
-        </div>
-        <div class="appTab__content">
-          <Location v-model:currentLocation="currentLocation" />
-        </div>
-        <div class="appTab__content">
-          <Introduce />
-        </div>
       </div>
-      <NavigationMenu v-model:activeMenu="currentPage" />
-    </div>
+    </template>
   `
 });
 

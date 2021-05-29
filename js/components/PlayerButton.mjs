@@ -39,7 +39,7 @@ export default {
     }
   },
   template: `
-    <div>
+    <div class="playerButton">
       <ToggleButton :icon="iconName" @toggle="updateMute" :initialToggled="initialMuted" />
       <audio ref="audio" :src="currentAudioSource" :autoplay="!initialMuted" loop />
     </div>
