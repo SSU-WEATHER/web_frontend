@@ -446,11 +446,15 @@
 
   .weatherWeek {
     padding: 12px 0;
+    height: 392px;
+    display: flex;
+    flex-direction: column;
   }
 
   .weatherWeekItem {
     padding-left: 27px;
     padding-right: 25px;
+    flex: 1;
   }
 
   .weatherWeekItem__values {
