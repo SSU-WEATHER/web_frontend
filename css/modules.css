@@ -330,6 +330,10 @@
   margin-top: 16px;
 }
 
+.locationModule .locationItem {
+  margin: 0 auto;
+}
+
 .otherModule__title {
   font-size: 17px;
   font-weight: 600;
@@ -350,7 +354,12 @@
   align-items: center;
   justify-content: center;
   height: 100%;
-  overflow-y: auto;
+}
+
+.locationModule .otherModule__content {
+  display: block;
+  overflow-y: scroll;
+  padding: 6.4rem 0 2rem;
 }
 
 .locationModule__break {
@@ -453,6 +462,7 @@
   }
 
   .locationModule .otherModule__content {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     width: 1000px;
