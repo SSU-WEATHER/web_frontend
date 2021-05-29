@@ -6,11 +6,15 @@ const WEATHER_TYPE_MAP = {
   'Clouds': 'cloudy'
 }
 
+function kelbinToCelsuis (input) {
+  return Math.floor((input - 273.15));
+}
+
 function createTimeTemperatures (weather) {
   return {
     date: dayjs(weather.dt_txt).toDate(),
     weatherType: WEATHER_TYPE_MAP[weather.weather[0].main] || 'sunny',
-    temperature: Math.floor(weather.main.temp / 10)
+    temperature: kelbinToCelsuis(weather.main.temp)
   }
 }
 
@@ -25,8 +29,8 @@ function createWeekTemperatures (weatherOfDays) {
     // precipitation: Math.floor(weatherOfDays.map(w => w.pop * 100).reduce((r, v) => r + v, 0) / weatherOfDays.length),
     precipitation: Math.floor(pops.reduce((r, v) => r + v, 0) / pops.length),
     // precipitation: Math.floor(Math.max(...weatherOfDays.map(w => w.pop)) * 100),
-    earlyTemperature: Math.floor(Math.min(...weatherOfDays.map(w => w.main.temp_min)) / 10),
-    lateTemperature: Math.floor(Math.max(...weatherOfDays.map(w => w.main.temp_max)) / 10),
+    earlyTemperature: kelbinToCelsuis(Math.min(...weatherOfDays.map(w => w.main.temp_min))),
+    lateTemperature: kelbinToCelsuis(Math.max(...weatherOfDays.map(w => w.main.temp_max))),
     earlyWeatherType: WEATHER_TYPE_MAP[weatherOfDays[Math.floor(weatherOfDays.length / 4)].weather[0].main],
     lateWeatherType: WEATHER_TYPE_MAP[weatherOfDays[Math.floor(weatherOfDays.length / 4 * 3)].weather[0].main],
   };
@@ -62,10 +66,10 @@ export default function parseWeatherApi (name, apiResult) {
     name, // 이름
     date: now.toDate(), // 날짜
     weatherType: WEATHER_TYPE_MAP[currentWeather.weather[0].main] || 'sunny', // 날씨 타입
-    currentTemperature: Math.floor(currentWeather.main.temp / 10), // 현재 온도
-    highTemperature: Math.floor(currentWeather.main.temp_max / 10), // 최고 온도
-    lowTemperature: Math.floor(currentWeather.main.temp_min / 10), // 최저 온도
-    sensoryTemperature: Math.floor(currentWeather.main.feels_like / 10), // 체감 온도
+    currentTemperature: kelbinToCelsuis(currentWeather.main.temp), // 현재 온도
+    highTemperature: kelbinToCelsuis(currentWeather.main.temp_max), // 최고 온도
+    lowTemperature: kelbinToCelsuis(currentWeather.main.temp_min), // 최저 온도
+    sensoryTemperature: kelbinToCelsuis(currentWeather.main.feels_like), // 체감 온도
     timeTemperatures: [...Array(6)]
       .map((_, index) => {
         return apiResult.weather.list[currentIndex + index];
