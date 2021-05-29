@@ -19,6 +19,11 @@ export default {
       return MUSIC_MAP[this.weatherType];
     }
   },
+  data () {
+    return {
+      initialMuted: JSON.parse(window.localStorage.getItem('muted'))
+    };
+  },
   methods: {
     iconName (toggled) {
       return toggled ? 'music-tune-slash' : 'music'
@@ -26,15 +31,17 @@ export default {
     updateMute (toggled) {
       if (toggled) {
         this.$refs.audio.pause();
+        window.localStorage.setItem('muted', JSON.stringify(true));
       } else {
         this.$refs.audio.play();
+        window.localStorage.setItem('muted', JSON.stringify(false));
       }
     }
   },
   template: `
     <div>
-      <ToggleButton :icon="iconName" @toggle="updateMute" />
-      <audio ref="audio" :src="currentAudioSource" autoplay loop />
+      <ToggleButton :icon="iconName" @toggle="updateMute" :initialToggled="initialMuted" />
+      <audio ref="audio" :src="currentAudioSource" :autoplay="!initialMuted" loop />
     </div>
   `
 };

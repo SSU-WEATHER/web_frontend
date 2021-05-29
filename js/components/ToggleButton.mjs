@@ -1,9 +1,9 @@
 export default {
   name: 'ToggleButton',
-  props: ['icon', 'direction'],
+  props: ['icon', 'direction', 'initialToggled'],
   data() {
     return {
-      toggled: false,
+      toggled: this.initialToggled,
       buttonId: `toggleButton${Math.random()}`
     };
   },
