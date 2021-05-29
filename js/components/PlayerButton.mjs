@@ -2,7 +2,7 @@ import ToggleButton from "./ToggleButton.mjs";
 
 const MUSIC_MAP = {
   cleared: '/sounds/HaveANice Day.mp3',
-  cloudy: '/sounds/HaveANice Day.mp3',
+  cloudy: '/sounds/BeforeYouExit_Clouds.mp3',
   thunder: '/sounds/ImagineDragons_Thunder.mp3',
   rainy_and_thunder: '/sounds/ImagineDragons_Thunder.mp3',
   rainy: '/sounds/AlfWardhana_Rainy days.mp3',
