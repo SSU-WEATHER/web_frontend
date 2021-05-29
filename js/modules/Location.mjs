@@ -21,17 +21,18 @@ export default Vue.defineComponent({
     }
   },
   template: `
-    <Page class="locationModule">
+    <Page class="otherModule locationModule">
       <template v-slot:header>
-        <h2 class="locationModule__title">Location</h2>
+        <h2 class="otherModule__title">Location</h2>
       </template>
-      <div class="locationModule__content">
+      <div class="otherModule__content">
         <template v-for="(location, i) in locations" :key="location.value">
           <LocationItem
             :value="location.value"
             :name="location.name"
             :active="currentLocation === location.value"
             @update="updateCurrentLocation"
+            @click.stop
           />
           <hr v-if="(i - 2) % 7 === 0" class="locationModule__break" />
         </template>

@@ -74,10 +74,10 @@ const app = Vue.createApp({
         <PlayerButton :weatherType="weatherProps.weatherType" />
         <WeatherApp :key="weatherProps.name" v-bind="weatherProps" />
         <transition name="fade">
-          <Location v-model:currentLocation="currentLocation" v-if="currentPage === 'Location'" />
+          <Location v-model:currentLocation="currentLocation" v-if="currentPage === 'Location'" @click="currentPage = 'Home'" />
         </transition>
         <transition name="fade">
-          <Introduce v-if="currentPage === 'About'" />
+          <Introduce v-if="currentPage === 'About'" @click="currentPage = 'Home'" />
         </transition>
       </template>
       <div class="appTab" v-else>

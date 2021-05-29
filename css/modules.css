@@ -330,7 +330,7 @@
   margin-top: 16px;
 }
 
-.locationModule__title {
+.otherModule__title {
   font-size: 17px;
   font-weight: 600;
   line-height: 1.29;
@@ -338,11 +338,11 @@
   color: #000000;
 }
 
-.locationModule .appHeader {
+.otherModule .appHeader {
   box-shadow: 0 0.5px 0 0 rgba(0, 0, 0, 0.08);
 }
 
-.locationModule__content {
+.otherModule__content {
   display: flex;
   flex: 1;
   padding-top: 4.4rem;
@@ -357,8 +357,67 @@
   display: none;
 }
 
+.aboutPage {
+  padding: 0 6.5rem;
+}
+
+@keyframes aboutPageLogo {
+  0% {
+    transform: rotate(10deg);
+  }
+  50% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(-10deg);
+  }
+}
+
+.aboutPage__logo {
+  display: block;
+  width: 15rem;
+  height: 15rem;
+  animation: aboutPageLogo 1s infinite alternate cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+.aboutPage__title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  line-height: normal;
+  letter-spacing: 0.87px;
+  text-align: center;
+  color: #1c1c1e;
+  margin-top: 1.2rem;
+}
+
+.aboutPage__subject {
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
+  color: #1c1c1e;
+  margin-top: 1rem;
+}
+
+.aboutPage__description {
+  font-size: 1.2rem;
+  line-height: 1.67;
+  letter-spacing: normal;
+  text-align: center;
+  color: #1c1c1e;
+  margin-top: 3.6rem;
+  word-break: keep-all;
+}
+
 @media screen and (min-width: 1200px) {
-  .locationModule {
+  .aboutPage {
+    max-width: 570px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .otherModule {
     position: fixed;
     top: 0;
     left: 0;
@@ -369,18 +428,18 @@
     background-color: rgba(var(--body-bg), 0.95);
   }
 
-  .locationModule.app {
+  .otherModule.app {
     padding-top: 0;
     display: flex;
     flex-direction: column;
   }
 
-  .locationModule .appHeader {
+  .otherModule .appHeader {
     background-color: transparent;
     filter: none;
   }
 
-  .locationModule__title {
+  .otherModule__title {
     font-size: 34px;
     font-weight: bold;
     line-height: 1.21;
@@ -389,11 +448,11 @@
     color: #1c1c1e;
   }
 
-  .locationModule .appHeader {
+  .otherModule .appHeader {
     box-shadow: none;
   }
 
-  .locationModule__content {
+  .locationModule .otherModule__content {
     flex-direction: row;
     flex-wrap: wrap;
     width: 1000px;
