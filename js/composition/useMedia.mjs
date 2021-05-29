@@ -1,10 +1,9 @@
 const { ref, onMounted } = Vue;
 
 export default function useMedia(mediaQuery) {
-  const mediaValue = ref(false);
+  const mediaValue = ref(!!window.matchMedia(mediaQuery).matches);
   onMounted(() => {
     const mediaQueryList = window.matchMedia(mediaQuery);
-    mediaValue.value = !!mediaQueryList.matches;
     mediaQueryList.addEventListener('change', event => {
       mediaValue.value = !!event.matches;
     });

@@ -17,11 +17,6 @@ export default {
       document.body.addEventListener('click', this.outsideClickEvent$);
     }
   },
-  computed: {
-    iconParse() {
-      return typeof this.icon === 'function' ? this.icon(this.toggled) : this.icon;
-    }
-  },
   watch: {
     toggled() {
       this.$emit('toggle', this.toggled);
@@ -36,7 +31,7 @@ export default {
     <div class="toggleButton">
       <input class="toggleButton__input" type="checkbox" :id="buttonId" v-model="toggled" />
       <label ref="label" class="toggleButton__label" :for="buttonId">
-        <i class="toggleButton__icon uil" :class="'uil-' + iconParse" />
+        <i class="toggleButton__icon uil" :class="'uil-' + icon" />
       </label>
       <div v-if="direction" class="toggleButton__container" :style="{[direction]: 0}">
         <slot />

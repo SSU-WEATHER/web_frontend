@@ -1,4 +1,5 @@
-import ToggleButton from "./ToggleButton.mjs";
+import ToggleButton from './ToggleButton.mjs';
+import useIsDesktop from '../composition/useIsDesktop.mjs';
 
 const MUSIC_MAP = {
   cleared: '/sounds/HaveANice Day.mp3',
@@ -10,7 +11,7 @@ const MUSIC_MAP = {
   foggy: '/sound/HaveANice Day.mp3',
 };
 
-export default {
+export default Vue.defineComponent({
   name: 'PlayerButton',
   components: { ToggleButton },
   props: ['weatherType'],
@@ -19,17 +20,16 @@ export default {
       return MUSIC_MAP[this.weatherType];
     }
   },
-  data () {
+  setup() {
+    const isDesktop = useIsDesktop();
+    const muted = Vue.ref(isDesktop.value ? JSON.parse(window.localStorage.getItem('muted')) : true);
     return {
-      initialMuted: JSON.parse(window.localStorage.getItem('muted'))
-    };
+      muted
+    }
   },
   methods: {
-    iconName (toggled) {
-      return toggled ? 'music-tune-slash' : 'music'
-    },
     updateMute (toggled) {
-      if (toggled) {
+      if (this.muted = toggled) {
         this.$refs.audio.pause();
         window.localStorage.setItem('muted', JSON.stringify(true));
       } else {
@@ -40,8 +40,8 @@ export default {
   },
   template: `
     <div class="playerButton">
-      <ToggleButton :icon="iconName" @toggle="updateMute" :initialToggled="initialMuted" />
-      <audio ref="audio" :src="currentAudioSource" :autoplay="!initialMuted" loop />
+      <ToggleButton :icon="muted ? 'music-tune-slash' : 'music'" @toggle="updateMute" :initialToggled="muted" />
+      <audio ref="audio" :src="currentAudioSource" :autoplay="!muted" loop />
     </div>
   `
-};
+});
