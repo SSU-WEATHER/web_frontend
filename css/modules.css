@@ -16,11 +16,6 @@
   position: relative;
   background-size: cover;
   background-position: 50% 50%;
-  transition: all 300ms;
-}
-
-.weatherIllustration:hover {
-  background-size: 110%;
 }
 
 .weatherInfo {
@@ -513,6 +508,11 @@
     margin-top: 10px;
     margin-bottom: 120px;
     background-size: 100% auto;
+    transition: all 300ms;
+  }
+
+  .weatherIllustration:hover {
+    background-size: 110% auto;
   }
 
   .weatherWeekItem ~ .weatherWeekItem,
