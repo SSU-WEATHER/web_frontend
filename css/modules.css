@@ -5,6 +5,15 @@
   width: 100%;
   padding-top: 100%;
   margin-top: 2rem;
+  overflow: hidden;
+  position: relative;
+  background-size: 100%;
+  background-position: 50% 50%;
+  transition: all 300ms;
+}
+
+.weatherIllustration:hover {
+  background-size: 110%;
 }
 
 .weatherInfo {
