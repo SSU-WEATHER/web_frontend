@@ -12,20 +12,20 @@ function kelbinToCelsuis (input) {
 
 function createTimeTemperatures (weather) {
   return {
-    date: dayjs(weather.dt_txt).toDate(),
+    date: dayjs.utc(weather.dt_txt).toDate(),
     weatherType: WEATHER_TYPE_MAP[weather.weather[0].main] || 'sunny',
     temperature: kelbinToCelsuis(weather.main.temp)
   }
 }
 
 function getDateKey (dateStr) {
-  return dayjs(dateStr).hour(0).minute(0).second(0).toISOString();
+  return dayjs.utc(dateStr).hour(0).minute(0).second(0).toISOString();
 }
 
 function createWeekTemperatures (weatherOfDays) {
   const pops = weatherOfDays.map(w => w.pop * 100).filter(v => v > 0);
   return {
-    date: dayjs(weatherOfDays[0].dt_txt).toDate(),
+    date: dayjs.utc(weatherOfDays[0].dt_txt).toDate(),
     precipitation: Math.floor(pops.reduce((r, v) => r + v, 0) / pops.length),
     earlyTemperature: kelbinToCelsuis(Math.min(...weatherOfDays.map(w => w.main.temp_min))),
     lateTemperature: kelbinToCelsuis(Math.max(...weatherOfDays.map(w => w.main.temp_max))),
@@ -39,7 +39,7 @@ function getAirQuality (air) {
 }
 
 export default function parseWeatherApi (name, apiResult) {
-  const now = dayjs() // 현재 날짜
+  const now = dayjs.utc() // 현재 날짜
 
   const weatherOfDaysEntries = Object.entries(apiResult.weather.list.reduce((result, weather) => {
     const dayKey = getDateKey(weather.dt_txt);
@@ -54,8 +54,8 @@ export default function parseWeatherApi (name, apiResult) {
 
   const currentWeather = apiResult.weather.list.find((weather, index, result) => {
     const nextWeather = result[index + 1];
-    return nextWeather && now.isBetween(dayjs(weather.dt_txt), dayjs(nextWeather.dt_txt));
-  });
+    return nextWeather && now.isBetween(dayjs.utc(weather.dt_txt), dayjs.utc(nextWeather.dt_txt));
+  }) || apiResult.weather.list[0];
 
   const currentIndex = apiResult.weather.list.indexOf(currentWeather);
   const currentDateKey = getDateKey(currentWeather.dt_txt);

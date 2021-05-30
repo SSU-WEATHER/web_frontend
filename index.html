@@ -25,10 +25,12 @@
   <script src="https://hammerjs.github.io/dist/hammer.min.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/plugin/advancedFormat.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
   <script src="https://unpkg.com/dayjs@1.8.21/plugin/isBetween.js"></script>
   <script>
     dayjs.extend(window.dayjs_plugin_advancedFormat);
     dayjs.extend(window.dayjs_plugin_isBetween);
+    dayjs.extend(window.dayjs_plugin_utc);
   </script>
   <script async type="module" src="/js/app.mjs"></script>
 </body>
