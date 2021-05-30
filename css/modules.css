@@ -407,6 +407,10 @@
   padding: 6.4rem 0 2rem;
 }
 
+.locationModule .otherModule__content::-webkit-scrollbar {
+  display: none;
+}
+
 .locationModule__break {
   display: none;
 }

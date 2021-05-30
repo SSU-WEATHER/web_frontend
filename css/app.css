@@ -76,6 +76,10 @@
   touch-action: pan-y;
 }
 
+.appSection::-webkit-scrollbar {
+  display: none;
+}
+
 /* AppSection */
 .appSectionHeader {
   margin-top: 0.5rem;
@@ -238,6 +242,10 @@
   overflow-y: auto;
   touch-action: pan-y;
   transform: translate3d(0, 0, 0);
+}
+
+.appTab__content::-webkit-scrollbar {
+  display: none;
 }
 
 .appTab__content .appHeader {
