@@ -26,9 +26,7 @@ function createWeekTemperatures (weatherOfDays) {
   const pops = weatherOfDays.map(w => w.pop * 100).filter(v => v > 0);
   return {
     date: dayjs(weatherOfDays[0].dt_txt).toDate(),
-    // precipitation: Math.floor(weatherOfDays.map(w => w.pop * 100).reduce((r, v) => r + v, 0) / weatherOfDays.length),
     precipitation: Math.floor(pops.reduce((r, v) => r + v, 0) / pops.length),
-    // precipitation: Math.floor(Math.max(...weatherOfDays.map(w => w.pop)) * 100),
     earlyTemperature: kelbinToCelsuis(Math.min(...weatherOfDays.map(w => w.main.temp_min))),
     lateTemperature: kelbinToCelsuis(Math.max(...weatherOfDays.map(w => w.main.temp_max))),
     earlyWeatherType: WEATHER_TYPE_MAP[weatherOfDays[Math.floor(weatherOfDays.length / 4)].weather[0].main],
@@ -76,7 +74,7 @@ export default function parseWeatherApi (name, apiResult) {
       })
       .filter(Boolean)
       .map(createTimeTemperatures),
-    precipitation: currentWeather.pop * 100, // 강수 확률
+    precipitation: Math.floor(currentWeather.pop * 100), // 강수 확률
     humidity: currentWeather.main.humidity, // 습도
     airQuality: getAirQuality(apiResult.airPollution.list[0]), // 미세먼지 타입
     wind: currentWeather.wind.speed, // 풍속
