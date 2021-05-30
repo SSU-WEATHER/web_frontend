@@ -14,8 +14,59 @@
   margin-top: 2rem;
   overflow: hidden;
   position: relative;
-  background-size: cover;
-  background-position: 50% 50%;
+}
+
+.weatherIllustration__wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.weatherIllustration__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  animation: illustionPositionKeyframe 10s infinite alternate ease-in-out;
+}
+
+@keyframes illustionPositionKeyframe {
+  from {
+    object-position: 50% 25%;
+  }
+  to {
+    object-position: 50% 75%;
+    transform: scale(1.1);
+  }
+}
+
+.weatherIllustration::after {
+  display: block;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  inset: 0;
+  background: linear-gradient(-45deg, #fff, #000);
+  background-size: 400% 400%;
+  animation: gradient 10s ease-in-out infinite;
+  mix-blend-mode: overlay;
+  backdrop-filter: blur(10px);
+  opacity: 0.5;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
 }
 
 .weatherInfo {
@@ -506,13 +557,8 @@
     margin-left: 50%;
     transform: translate3d(-50%, 0, 0);
     margin-top: 10px;
-    margin-bottom: 120px;
+    margin-bottom: 26px;
     background-size: 100% auto;
-    transition: all 300ms;
-  }
-
-  .weatherIllustration:hover {
-    background-size: 110% auto;
   }
 
   .weatherWeekItem ~ .weatherWeekItem,

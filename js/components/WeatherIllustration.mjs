@@ -2,13 +2,15 @@ export default Vue.defineComponent({
   name: 'weather-illustration',
   props: ['weatherType'],
   computed: {
-    weatherBackground() {
-      return {
-        backgroundImage: `url('/images/illustration/${this.weatherType}.png')`
-      };
+    weatherImage () {
+      return `/images/illustration/${this.weatherType}.png`;
     }
   },
   template: `
-    <figure class="weatherIllustration" :style="weatherBackground" />
+    <figure class="weatherIllustration">
+      <div class="weatherIllustration__wrapper">
+        <img :src="weatherImage" class="weatherIllustration__image" alt="" />
+      </div>
+    </figure>
   `
 });
