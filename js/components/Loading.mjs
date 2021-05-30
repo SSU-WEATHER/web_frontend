@@ -5,7 +5,7 @@ export default {
   components: { Logo },
   template: `
     <div class="appLoading">
-      <Logo color="var(--logo-color)" class="appLoading__image" />
+      <Logo color="#f3f3f3" class="appLoading__image" />
     </div>
   `
 }

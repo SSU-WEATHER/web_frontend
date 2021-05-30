@@ -137,6 +137,7 @@
 }
 
 .appLoading__image * {
+  fill: var(--logo-color);
   transition: fill 300ms;
 }
 
