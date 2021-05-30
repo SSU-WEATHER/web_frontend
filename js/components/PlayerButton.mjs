@@ -22,7 +22,9 @@ export default Vue.defineComponent({
   },
   setup() {
     const isDesktop = useIsDesktop();
-    const muted = Vue.ref(isDesktop.value ? JSON.parse(window.localStorage.getItem('muted')) : true);
+    /* chrome에서 정책상 autoplay가 막혀있어서 mute 되어있는걸로 default */
+    //const muted = Vue.ref(isDesktop.value ? JSON.parse(window.localStorage.getItem('muted')) : true);
+    const muted = Vue.ref(true);
     return {
       muted
     }
