@@ -6,6 +6,12 @@ const WEATHER_TYPE_MAP = {
   'Clouds': 'cloudy'
 }
 
+function convertToKoreaDate (dateStr) {
+  const date = dayjs(dateStr);
+  const koreaDate = date.hour(date.hour() + 9);
+  return koreaDate.format('YYYY-MM-DD HH:mm:ss');
+}
+
 function kelbinToCelsuis (input) {
   return Math.floor((input - 273.15));
 }
@@ -41,6 +47,7 @@ function getAirQuality (air) {
 export default function parseWeatherApi (name, apiResult) {
   const now = dayjs() // 현재 날짜
 
+  apiResult.weather.list.forEach(weather => weather.dt_txt = convertToKoreaDate(weather.dt_txt));
   const weatherOfDaysEntries = Object.entries(apiResult.weather.list.reduce((result, weather) => {
     const dayKey = getDateKey(weather.dt_txt);
     if (!result[dayKey]) {
@@ -55,8 +62,7 @@ export default function parseWeatherApi (name, apiResult) {
   const currentWeather = apiResult.weather.list.find((weather, index, result) => {
     const nextWeather = result[index + 1];
     return nextWeather && now.isBetween(dayjs(weather.dt_txt), dayjs(nextWeather.dt_txt));
-  });
-
+  }) || apiResult.weather.list[0];
   const currentIndex = apiResult.weather.list.indexOf(currentWeather);
   const currentDateKey = getDateKey(currentWeather.dt_txt);
   const currentEntiresIndex = weatherOfDaysEntries.findIndex(([dayKey]) => dayKey === currentDateKey);
