@@ -19,7 +19,7 @@ function createTimeTemperatures (weather) {
 }
 
 function getDateKey (dateStr) {
-  return dayjs.utc(dateStr).hour(0).minute(0).second(0).toISOString();
+  return dayjs.utc(dateStr).local().format('YYYYMMDD');
 }
 
 function createWeekTemperatures (weatherOfDays) {
