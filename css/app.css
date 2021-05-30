@@ -128,10 +128,16 @@
 @keyframes appLoadingImage {
   from {
     transform: translate3d(-50%, calc(-50% + 3.0rem), 0);
+    --logo-color: #f3f3f3;
   }
   to {
     transform: translate3d(-50%, calc(-50% - 3.0rem), 0);
+    --logo-color: #ff7b28;
   }
+}
+
+.appLoading__image * {
+  transition: fill 300ms;
 }
 
 .appLoading__image {
