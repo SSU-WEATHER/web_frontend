@@ -33,10 +33,10 @@ export default Vue.defineComponent({
     updateMute (toggled) {
       if (this.muted = toggled) {
         this.$refs.audio.pause();
-        window.localStorage.setItem('muted', JSON.stringify(true));
+        //window.localStorage.setItem('muted', JSON.stringify(true));
       } else {
         this.$refs.audio.play();
-        window.localStorage.setItem('muted', JSON.stringify(false));
+        //window.localStorage.setItem('muted', JSON.stringify(false));
       }
     }
   },
