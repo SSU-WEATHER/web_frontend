@@ -118,7 +118,7 @@ export default defineComponent({
           <WeatherIllustration :weatherType="weatherType" />
           <div class="weatherInfo" v-if="!isDesktop">
             <strong class="weatherInfo__value">{{currentTemperature}}<sub class="weatherInfo__valueSub">&#8451;</sub></strong>
-            <em class="weatherInfo__description capitalize">{{weatherType}}</em>
+            <em class="weatherInfo__description capitalize">{{weatherType.replaceAll('_', ' ')}}</em>
           </div>
           <WeatherVariousTemperatureHeader v-else :lowTemperature="lowTemperature" :highTemperature="highTemperature" :sensoryTemperature="sensoryTemperature" />
         </section>
