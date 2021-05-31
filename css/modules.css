@@ -326,7 +326,7 @@
 }
 
 .locationItem--active {
-  box-shadow: 0 0 0 2px var(--active-color);
+  box-shadow: 0 0 0 2px var(--point-color);
 }
 
 .locationItem__icon {
@@ -334,7 +334,7 @@
   left: 1.6rem;
   top: 50%;
   transform: translate3d(0, -50%, 0) scale(0);
-  color: var(--active-color);
+  color: var(--point-color);
   opacity: 0;
   font-size: 16px;
   transition: all 300ms;
