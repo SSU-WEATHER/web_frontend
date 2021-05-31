@@ -10,7 +10,7 @@ export default Vue.defineComponent({
     </header>
     <slot />
     <footer class="appFooter">
-      <Logo class="appFooter__logo" color="#d1d1d6" />
+      <Logo class="appFooter__logo" color="var(--shadow-color)" />
     </footer>
   </article>
   `

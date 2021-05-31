@@ -7,6 +7,11 @@
 :root {
   --body-bg: 255, 255, 255;
   --desktop-width: 1200px;
+  --text-color: #1c1c1e;
+  --active-color: #2c2c2e;
+  --description-color: #8e8e93;
+  --shadow-color: #d1d1d6;
+  --point-color: #ff7b28;
 }
 
 html {
@@ -26,7 +31,7 @@ html, body, #app {
 }
 
 body {
-  color: #1c1c1e;
+  color: var(--text-color);
   line-height: 1;
   font-family: system-ui;
   /* background-color: rgb(var(--body-bg)); */
